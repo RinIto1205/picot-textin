@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>副業ゼロから、AIとアフィリエイトで収入の柱をつくる｜無料動画講座</title>
+    <style>
+        /* ==========================================================================
+           1. Reset & Core CSS Variables
+           ========================================================================== */
+        :root {
+            --primary-color: #0066ff;
+            --primary-grad: linear-gradient(135deg, #0052cc 0%, #00c6ff 100%);
+            --accent-grad: linear-gradient(135deg, #ff9900 0%, #ff5500 100%);
+            --dark-bg: #0f172a;
+            --bg-light: #f4f8fc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-soft: 0 10px 30px -5px rgba(0, 102, 255, 0.08), 0 8px 15px -6px rgba(0, 0, 0, 0.03);
+            --shadow-hover: 0 20px 40px -10px rgba(0, 102, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            /* スマホでのテキストサイズ自動調整を防止 */
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(0, 102, 255, 0.07) 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+            /* 下部固定追従バナー用の余白 */
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .text-center { text-align: center; }
+        
+        .gradient-text {
+            background: var(--primary-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        /* 汎用プレースホルダー */
+        .placeholder-box {
+            width: 100%;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border: 2px dashed #cbd5e1;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 16px;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景Blobアニメーション */
+        .bg-blob, .bg-blob-2 {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .bg-blob {
+            width: min(550px, 90vw);
+            height: min(550px, 90vw);
+            background: radial-gradient(circle, rgba(0, 198, 255, 0.18) 0%, rgba(0, 102, 255, 0.04) 70%, transparent 100%);
+            filter: blur(80px);
+            animation: float 9s infinite alternate ease-in-out;
+        }
+        
+        .bg-blob-2 {
+            width: min(480px, 80vw);
+            height: min(480px, 80vw);
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.15) 0%, rgba(255, 85, 0, 0.03) 70%, transparent 100%);
+            filter: blur(90px);
+            animation: float 11s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(30px, 30px) scale(1.1) rotate(15deg); }
+        }
+
+        /* ==========================================================================
+           2. Component Styles (Responsive Ready)
+           ========================================================================== */
+
+        /* CTA Button */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 550px;
+            padding: clamp(16px, 3vw, 22px) clamp(20px, 4vw, 35px);
+            background: var(--accent-grad);
+            color: #ffffff;
+            font-size: clamp(1.05rem, 3.5vw, 1.4rem);
+            font-weight: 900;
+            border-radius: 60px;
+            box-shadow: 0 12px 30px rgba(255, 85, 0, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-glow 2.5s infinite;
+        }
+
+        .btn-cta::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, rgba(255,255,255,0) 20%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 80%);
+            transform: rotate(30deg) translateY(-100%);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translateY(-200%); }
+            20% { transform: rotate(30deg) translateY(200%); }
+            100% { transform: rotate(30deg) translateY(200%); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(255, 85, 0, 0.35); }
+            50% { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255, 85, 0, 0.5); }
+        }
+
+        .btn-cta:hover { transform: translateY(-3px) scale(1.02); }
+
+        /* 画面下部 常に追従する申し込みバナー */
+        .sticky-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 2px solid rgba(255, 153, 0, 0.6);
+            padding: 10px 15px;
+            z-index: 9999;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sticky-cta-inner {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .sticky-cta-text {
+            color: #ffffff;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            font-weight: bold;
+        }
+
+        .sticky-cta-text span {
+            color: #ff9900;
+            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            display: block;
+        }
+
+        .btn-sticky-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            background: var(--accent-grad);
+            color: #ffffff;
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            font-weight: 900;
+            border-radius: 40px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.4);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            animation: pulse-glow 2.5s infinite;
+        }
+
+        /* Section Settings */
+        section { 
+            padding: clamp(50px, 8vw, 95px) 0; 
+            position: relative; 
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 4.5vw, 2.3rem);
+            text-align: center;
+            margin-bottom: clamp(30px, 5vw, 55px);
+            font-weight: 900;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        .section-title span {
+            display: block;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo { 
+            font-weight: 900; 
+            font-size: clamp(1rem, 3vw, 1.2rem); 
+        }
+        
+        .header-btn {
+            padding: 8px 18px;
+            background: var(--primary-grad);
+            color: #fff;
+            border-radius: 30px;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+        }
+
+        /* Hero */
+        .hero {
+            padding: clamp(35px, 6vw, 65px) 0 clamp(50px, 8vw, 90px);
+            text-align: center;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(224, 242, 254, 0.5) 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0284c7;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.75rem, 5.5vw, 3rem);
+            line-height: 1.35;
+            margin-bottom: 25px;
+            font-weight: 900;
+        }
+
+        /* Infographic Data Summary */
+        .data-summary {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: clamp(20px, 4vw, 35px) 15px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-color);
+            margin: clamp(25px, 5vw, 40px) 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .data-summary { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .data-num { 
+            font-size: clamp(1.8rem, 4.5vw, 2.5rem); 
+            font-weight: 900; 
+            line-height: 1.1; 
+        }
+
+        /* Problem Section */
+        .problem-section { background-color: rgba(241, 245, 249, 0.8); }
+        .problem-card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (min-width: 600px) {
+            .problem-card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .problem-card {
+            background: #ffffff;
+            padding: clamp(20px, 3.5vw, 28px);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        /* Voice Section */
+        .voice-section { background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(224, 242, 254, 0.4) 100%); }
+        .voice-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .voice-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .voice-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: clamp(20px, 3.5vw, 30px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Comparison Table (レスポンシブ崩れ対策：スマホ時は縦並びカード化) */
+        .comparison-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .comparison-table {
+            width: 100%;
+            min-width: 500px; /* スマホで文字潰れを防ぐ最低幅 */
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: clamp(12px, 2.5vw, 20px);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            font-size: clamp(0.85rem, 2.2vw, 1rem);
+        }
+
+        .comparison-table th { background: #f8fafc; font-weight: bold; }
+        .highlight-col { background: #f0f7ff !important; border-left: 2px solid var(--primary-color); border-right: 2px solid var(--primary-color); }
+
+        /* Features Section */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: clamp(25px, 4vw, 35px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feature-card-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        /* Instructor / Representative Section */
+        .instructor-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: clamp(25px, 5vw, 45px);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .instructor-card { grid-template-columns: 260px 1fr; gap: 40px; }
+        }
+
+        /* Timeline & Flow Section */
+        .timeline { max-width: 800px; margin: 0 auto 40px; }
+        .timeline-item {
+            padding: clamp(20px, 3.5vw, 30px);
+            background: #ffffff;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: var(--shadow-soft);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Flow Step Grid */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .flow-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+
+        .flow-card {
+            background: #ffffff;
+            padding: clamp(15px, 3vw, 25px) 12px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        /* Support & Guarantees */
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .support-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        }
+
+        .support-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: clamp(20px, 4vw, 30px);
+            border: 2px dashed #0066ff33;
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Pricing Section */
+        .pricing-card {
+            background: #ffffff;
+            border: 2px solid var(--primary-color);
+            border-radius: 24px;
+            max-width: 750px;
+            margin: 0 auto;
+            padding: clamp(35px, 6vw, 50px) clamp(18px, 4vw, 30px);
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-grad);
+            color: #ffffff;
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+            white-space: nowrap;
+        }
+
+        /* FAQ Section */
+        details.faq-box {
+            background: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            padding: clamp(15px, 3.5vw, 20px) clamp(18px, 4vw, 25px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: all 0.3s;
+        }
+
+        details.faq-box[open] { border-color: var(--primary-color); box-shadow: var(--shadow-soft); }
+        summary.faq-summary { font-weight: bold; font-size: clamp(0.95rem, 2.5vw, 1.05rem); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary.faq-summary::-webkit-details-marker { display: none; }
+        summary.faq-summary::after { content: '+'; font-size: 1.4rem; color: var(--primary-color); transition: transform 0.3s; margin-left: 10px; }
+        details[open] summary.faq-summary::after { transform: rotate(45deg); }
+
+        /* Mobile Optimization Rules (スマホ専用調整) */
+        @media (max-width: 600px) {
+            .sticky-cta-text { display: none; } /* スマホではテキストを非表示にしてボタンを全面太く表示 */
+            .sticky-cta-inner { justify-content: center; }
+            .btn-sticky-cta { width: 100%; text-align: center; padding: 12px 15px; }
+            body { padding-bottom: 75px; }
+        }
+    
+/* ===== Copy-fit visual refinement ===== */
+:root{
+  --primary-color:#2563eb;
+  --primary-grad:linear-gradient(135deg,#2563eb 0%,#4f46e5 100%);
+  --accent-grad:linear-gradient(135deg,#10b981 0%,#059669 100%);
+  --bg-light:#f7f9fc;
+  --text-main:#111827;
+  --text-muted:#667085;
+  --border-color:#e5eaf2;
+  --shadow-soft:0 12px 35px rgba(37,99,235,.08),0 4px 14px rgba(15,23,42,.04);
+  --shadow-hover:0 20px 45px rgba(37,99,235,.16);
+}
+body{
+  background-image:radial-gradient(rgba(37,99,235,.055) 1px,transparent 1px);
+  background-size:30px 30px;
+}
+header{background:rgba(255,255,255,.96);}
+.header-logo{letter-spacing:.02em;}
+.header-btn{background:var(--accent-grad);box-shadow:0 5px 16px rgba(16,185,129,.22);}
+.hero{
+  padding-top:clamp(48px,7vw,82px);
+  background:
+    radial-gradient(circle at 15% 15%,rgba(37,99,235,.10),transparent 32%),
+    radial-gradient(circle at 85% 35%,rgba(16,185,129,.08),transparent 28%),
+    linear-gradient(180deg,#fff 0%,#f5f9ff 100%);
+}
+.hero-badge{background:#eff6ff;color:#2563eb;border:1px solid #dbeafe;}
+.hero-catch{font-size:clamp(1.15rem,3.4vw,1.65rem);font-weight:900;line-height:1.55;letter-spacing:.015em;color:#1d4ed8;margin-bottom:14px;}
+.hero-title{letter-spacing:-.025em;}
+.hero-title .gradient-text{background:linear-gradient(135deg,#111827 0%,#2563eb 65%,#4f46e5 100%);-webkit-background-clip:text;}
+.lead-copy{font-size:clamp(.95rem,2.5vw,1.12rem);line-height:1.9;font-weight:700;color:#344054;}
+.hero-note{margin-top:14px;color:#667085;font-size:.78rem;line-height:1.8;}
+.btn-cta{background:var(--accent-grad);box-shadow:0 12px 30px rgba(16,185,129,.25);}
+.btn-cta:hover{box-shadow:0 16px 36px rgba(16,185,129,.32);}
+.sticky-cta-bar{background:rgba(255,255,255,.94);border-top:1px solid #dbe5ef;box-shadow:0 -8px 25px rgba(15,23,42,.08);}
+.sticky-cta-text{color:#172033;}
+.sticky-cta-text span{color:#059669;}
+.btn-sticky-cta{background:var(--accent-grad);box-shadow:0 5px 16px rgba(16,185,129,.22);}
+.section-title{letter-spacing:-.02em;}
+.section-title span{color:#2563eb;letter-spacing:.16em;}
+.copy-block{max-width:850px;margin:0 auto;font-size:clamp(.95rem,2.5vw,1.06rem);line-height:2;}
+.copy-block p{margin-bottom:20px;}
+.check-list{display:grid;gap:10px;margin-bottom:30px;}
+.check-list li{list-style:none;position:relative;padding:15px 18px 15px 44px;background:#fff;border:1px solid var(--border-color);border-radius:14px;box-shadow:0 4px 12px rgba(15,23,42,.035);font-weight:700;}
+.check-list li::before{content:'✓';position:absolute;left:16px;top:50%;transform:translateY(-50%);width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:#dbeafe;color:#2563eb;font-weight:900;font-size:.78rem;}
+.highlight-box{background:linear-gradient(135deg,#eff6ff 0%,#ffffff 58%,#ecfdf5 100%);border:1px solid #dbeafe;}
+.condition-card,.video-point,.stat-card,.receive-step,.benefit-list li{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;}
+.condition-card:hover,.video-point:hover,.stat-card:hover,.receive-step:hover,.benefit-list li:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:#bfdbfe;}
+.condition-card .num,.video-point .num{background:var(--primary-grad);}
+.video-point p{line-height:1.8;}
+.stat-card .result{background:var(--primary-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.benefit-list .icon{background:var(--primary-grad);}
+.receive-step .step-no{color:#2563eb;}
+.faq-box{border-radius:16px!important;}
+details.faq-box[open]{border-color:#93c5fd;}
+summary.faq-summary::after{color:#2563eb;}
+#cta{background:radial-gradient(circle at 50% 0%,rgba(37,99,235,.30),transparent 45%),linear-gradient(135deg,#101827 0%,#172554 100%)!important;}
+.closing-copy{line-height:2;}
+.closing-copy p{line-height:2;}
+#cta .btn-cta{max-width:600px;}
+footer{background:#fff;border-top:1px solid var(--border-color);}
+@media(max-width:700px){
+  .hero-title{font-size:clamp(1.55rem,7vw,2.15rem);}
+  .hero-catch{font-size:1.05rem;}
+  .copy-block{line-height:1.9;}
+  .check-list li{padding:13px 14px 13px 40px;}
+}
+</style>
+
+<style>
+/* ===== Writing Plan LP additions ===== */
+.lead-copy{max-width:820px;margin:0 auto;color:var(--text-muted);font-size:clamp(.95rem,2.5vw,1.08rem);}
+.hero-catch{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:900;line-height:1.55;margin-bottom:18px;}
+.hero-note{margin-top:14px;color:var(--text-muted);font-size:clamp(.72rem,2vw,.86rem);line-height:1.8;}
+.eyebrow{display:inline-block;margin-bottom:12px;color:var(--primary-color);font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;}
+.copy-block{max-width:850px;margin:0 auto;}
+.copy-block p{margin-bottom:18px;}
+.check-list,.number-list,.benefit-list{display:grid;gap:12px;margin:25px 0;padding:0;list-style:none;}
+.check-list li{background:#fff;border:1px solid var(--border-color);border-radius:14px;padding:15px 18px;font-weight:700;box-shadow:0 4px 12px rgba(0,0,0,.025);}
+.check-list li::first-letter{color:var(--primary-color);}
+.highlight-box{margin:30px auto;padding:24px;border-radius:20px;background:linear-gradient(135deg,#eff8ff,#fff7ed);border:1px solid #dbeafe;box-shadow:var(--shadow-soft);}
+.highlight-box strong{font-size:clamp(1.05rem,3vw,1.35rem);}
+.condition-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:28px;}
+.condition-card{background:#fff;border:1px solid var(--border-color);border-radius:18px;padding:22px;box-shadow:var(--shadow-soft);}
+.condition-card .num{font-size:1.8rem;font-weight:900;color:var(--primary-color);line-height:1;margin-bottom:10px;}
+.video-points{display:grid;gap:16px;margin-top:28px;}
+.video-point{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:start;background:#fff;border:1px solid var(--border-color);border-radius:18px;padding:20px;box-shadow:var(--shadow-soft);}
+.video-point .num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--primary-color);color:#fff;font-weight:900;}
+.video-point h3{font-size:clamp(1rem,2.6vw,1.18rem);margin-bottom:5px;}
+.video-point p{color:var(--text-muted);font-size:.9rem;}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px;}
+.stat-card{background:#fff;border:1px solid var(--border-color);border-radius:18px;padding:22px;text-align:center;box-shadow:var(--shadow-soft);}
+.stat-card .result{font-size:clamp(1.5rem,4vw,2rem);font-weight:900;color:var(--primary-color);margin:5px 0;}
+.stat-card .person{font-weight:800;font-size:.9rem;}
+.benefit-list li{display:grid;grid-template-columns:auto 1fr;gap:12px;background:#fff;border:1px solid var(--border-color);border-radius:16px;padding:17px 18px;box-shadow:0 4px 12px rgba(0,0,0,.025);}
+.benefit-list .icon{color:#fff;background:var(--primary-color);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:900;}
+.benefit-list strong{display:block;margin-bottom:3px;}
+.receive-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0;}
+.receive-step{background:#fff;border:1px solid var(--border-color);border-radius:20px;padding:25px 18px;text-align:center;box-shadow:var(--shadow-soft);}
+.receive-step .step-no{font-size:.78rem;color:var(--primary-color);font-weight:900;letter-spacing:.08em;margin-bottom:8px;}
+.receive-step h3{font-size:1rem;margin-bottom:6px;}
+.receive-step p{color:var(--text-muted);font-size:.88rem;}
+.closing-copy{max-width:820px;margin:0 auto;text-align:left;}
+.closing-copy p{margin-bottom:18px;color:#cbd5e1;font-size:clamp(.9rem,2.5vw,1.05rem);}
+.closing-copy strong{color:#fff;font-size:1.08em;}
+.notice{font-size:.78rem;color:var(--text-muted);line-height:1.8;margin-top:14px;}
+.hero .placeholder-box{margin-top:30px;}
+@media(max-width:700px){
+ .condition-grid,.stats-grid{grid-template-columns:1fr;}
+ .receive-steps{grid-template-columns:1fr;}
+ .video-point{grid-template-columns:1fr;}
+ .video-point .num{width:34px;height:34px;}
+}
+</style>
+
+</head>
+
+<body>
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-logo">AI × AFFILIATE</div>
+      <a href="#cta" class="header-btn">無料動画を受け取る</a>
+    </div>
+  </div>
+</header>
+
+<!-- 0. First View -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">LINE登録限定・無料動画講座</span>
+    <div class="hero-catch">時間と場所に縛られずに<br>初心者からでも、月10万円を目指す</div>
+    <h1 class="hero-title">副業ゼロから、AIとアフィリエイトで<br><span class="gradient-text">収入の柱をつくる完全解説ロードマップ</span></h1>
+
+    <div class="placeholder-box" style="height:clamp(180px,38vw,330px);margin:0 auto 25px;box-shadow:var(--shadow-soft);">
+      【動画・メインビジュアル設置エリア】
+    </div>
+
+    <p class="lead-copy">＼LINE登録で、約30分の動画講座を無料プレゼント／<br>最後まで見た方には、豪華8大特典と<br>無料スポットコンサルもご案内</p>
+    <a href="#cta" class="btn-cta" style="margin-top:24px;">無料で LINEに登録して動画を受け取る ➔</a>
+    <p class="hero-note">※ 登録から3日間限定で公開します<br>※ 無理な勧誘は一切ありません</p>
+  </div>
+</section>
+
+<!-- 1. Problem -->
+<section class="problem-section">
+  <div class="container">
+    <h2 class="section-title"><span>Problem</span>毎日働いているのに、なぜお金が増えないのか。</h2>
+    <div class="copy-block">
+      <div class="check-list">
+        <li>✔ 5年前と、生活がほとんど変わっていない</li>
+        <li>✔ 給料が上がっても、手取りが増えた実感がない</li>
+        <li>✔ 旅行も外食も、行き先ではなく値段から選んでいる</li>
+        <li>✔ 飲み会を「今月ちょっと」と断る回数が増えた</li>
+        <li>✔ 合わない会社でも、来月の家賃を考えると辞められない</li>
+      </div>
+      <div class="highlight-box text-center">
+        <p>ひとつでも当てはまるなら、</p>
+        <strong>原因はあなたの頑張りではありません。</strong>
+      </div>
+      <p>給料から引かれる税金と社会保険料は、50年前は収入の約4分の1。<br>しかし実は、約半分です。</p>
+      <p>給料が少し上がっても、それ以上に引かれる額が増えている。<br>だから、どれだけ真面目に働いても、手元のお金が増えないんです。</p>
+      <p><strong>つまり、本業だけで頑張り続けても、この状況は変わりません。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Cause -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span>Why</span>9割の人が、副業を始める前にすでに間違えています。</h2>
+    <div class="copy-block">
+      <p>いまは、お金を稼ぐ方法が多すぎる時代です。</p>
+      <p>動画編集、Webライティング、ブログ、せどり、FX、SNS運用。<br>調べるほど選択肢が増えて、どれが自分に合うのか分からなくなります。</p>
+      <p>その結果、多くの人は次の2つのどちらかになります。</p>
+      <div class="condition-grid">
+        <div class="condition-card"><div class="num">01</div><h3>「流行っているから」で選ぶ</h3><p>「安く始められるから」で選ぶ。みんなが同じものに集まるので、単価は下がり、時間だけが溶けていきます。</p></div>
+        <div class="condition-card"><div class="num">02</div><h3>「本業だけで何とかしよう」とする</h3><p>残業を増やす、節約する、転職を考える。ただ、手取りが削られていく構造の中では、頑張る量を増やしても追いつきません。</p></div>
+      </div>
+      <div class="highlight-box">
+        <p>どちらも、能力の問題ではありません。</p>
+        <strong>副業を選ぶための物差しを、誰にも教わっていないだけです。</strong>
+        <p style="margin:12px 0 0;">この動画では、その物差しを4つの条件としてお渡しします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. What you learn -->
+<section style="background:rgba(248,250,252,.8);">
+  <div class="container">
+    <h2 class="section-title"><span>Contents</span>約30分の動画で、ここまで分かります</h2>
+    <div class="video-points">
+      <div class="video-point"><div class="num">1</div><div><h3>毎日働いているのに、お金が増えない本当の理由</h3><p>国民負担率とAIが、あなたの収入に何をしているのか</p></div></div>
+      <div class="video-point"><div class="num">2</div><div><h3>学校では教わらない、社会のお金のからくり</h3><p>勝ち組だけが知っている、社会の3つの裏ルール</p></div></div>
+      <div class="video-point"><div class="num">3</div><div><h3>9割が間違える、副業の選び方4条件</h3><p>動画編集・ブログ・せどり・FXなど、よくある副業8つを実際に条件で判定</p></div></div>
+      <div class="video-point"><div class="num">4</div><div><h3>AIに作業を渡して、ゼロから収益の土台をつくる全手順</h3><p>プログラミングもデザインも不要。少額から試せるやり方</p></div></div>
+    </div>
+    <p class="text-center" style="margin-top:28px;font-weight:800;">過去に有料でお渡ししてきた内容も入っています。</p>
+  </div>
+</section>
+
+<!-- 4. Results -->
+<section class="voice-section">
+  <div class="container">
+    <h2 class="section-title"><span>Results</span>子持ち主婦さんから、学生さんまで。<br>特別なセンスを持った方は、ひとりもいません。</h2>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="person">39歳 会社員の女性</div><div class="result">12,186円</div><p>たった2ヶ月で収益化を達成</p><div class="placeholder-box" style="height:110px;margin-top:14px;">【実績画像】</div></div>
+      <div class="stat-card"><div class="person">54歳 自営業の女性</div><div class="result">100,056円</div><p>1ヶ月目19,759円 → 4ヶ月目</p><div class="placeholder-box" style="height:110px;margin-top:14px;">【実績画像】</div></div>
+      <div class="stat-card"><div class="person">36歳 会社員の男性</div><div class="result">114,625円</div><p>本業を続けながら、ひと月で達成</p><div class="placeholder-box" style="height:110px;margin-top:14px;">【実績画像】</div></div>
+      <div class="stat-card"><div class="person">23歳 大学生</div><div class="result">6,329円</div><p>副業未経験から、初めての収益</p><div class="placeholder-box" style="height:110px;margin-top:14px;">【実績画像】</div></div>
+      <div class="stat-card"><div class="person">31歳 自営業</div><div class="result">81,542円</div><p>始めて1週間で達成</p><div class="placeholder-box" style="height:110px;margin-top:14px;">【実績画像】</div></div>
+    </div>
+    <div class="highlight-box text-center" style="margin-top:30px;">
+      <p>みなさん、最初は副業ゼロの状態からのスタートです。</p>
+      <strong>やることが決まっているので、センスや経験の差が結果に出にくいのが特徴です。</strong>
+      <p class="notice">※ 同じ結果をお約束するものではありません。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Registration Benefit -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span>Registration Benefit</span>LINE登録限定特典</h2>
+    <div class="highlight-box text-center">
+      <div class="hero-catch" style="margin-bottom:8px;">時間と場所に縛られずに<br>初心者からでも、月10万円を目指す</div>
+      <h3 style="font-size:clamp(1.15rem,3.5vw,1.6rem);line-height:1.5;">「副業ゼロから、AIとアフィリエイトで<br>収入の柱をつくる完全解説ロードマップ」</h3>
+      <p style="margin-top:12px;font-weight:800;color:var(--primary-color);">視聴時間 約30分｜登録から3日間限定</p>
+    </div>
+    <div class="copy-block">
+      <p>この動画のゴールは2つです。</p>
+      <p><strong>副業を通して、あなたの人生の選択肢を増やすこと。<br>そして、お金の不安から抜け出すことです。</strong></p>
+      <p>学校では教わらないお金のからくりから、ゼロから自分のスキルで収入を生み出す具体的な手順まで。</p>
+      <p>この動画1本に、まとめて収めました。</p>
+      <p>過去に有料でお渡ししてきた内容も含まれています。</p>
+      <p>メモを取りながら、集中できる環境で、最後まで止めずに見ていただくのがおすすめです。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Viewing Benefits -->
+<section style="background:rgba(248,250,252,.8);">
+  <div class="container">
+    <h2 class="section-title"><span>8 Benefits</span>さらに、動画を最後まで見た方限定で<br>豪華8大特典をお渡しします</h2>
+    <p class="text-center lead-copy">受講生にお渡ししている資料を、そのままプレゼントします。<br><strong>合計は180ページを超えます。</strong></p>
+    <ul class="benefit-list">
+      <li><span class="icon">01</span><div><strong>最初のスタートでつまずかない、収益化までの完全ロードマップ</strong>105ページ</div></li>
+      <li><span class="icon">02</span><div><strong>プロも活用している、稼げるアフィリエイトASP 9選</strong></div></li>
+      <li><span class="icon">03</span><div><strong>勝てる案件が見つかる、競合リサーチと商品選定マニュアル</strong></div></li>
+      <li><span class="icon">04</span><div><strong>広告費を無駄打ちしない、キーワード攻略法</strong></div></li>
+      <li><span class="icon">05</span><div><strong>広告の成果が最大化される、広告文テンプレートと解説</strong></div></li>
+      <li><span class="icon">06</span><div><strong>初心者でも安心してできる、Google広告の実践動画</strong></div></li>
+      <li><span class="icon">07</span><div><strong>初月で収益化するステップ、5日間チャレンジ</strong></div></li>
+      <li><span class="icon">08</span><div><strong>実際に成果が出た、広告の事例紹介</strong></div></li>
+    </ul>
+    <div class="highlight-box">
+      <h3 style="font-size:clamp(1.1rem,3vw,1.35rem);margin-bottom:12px;">さらに、無料スポットコンサルもご案内</h3>
+      <p>普段は受講生に有料で行っている60分の無料スポットコンサルもご案内します。</p>
+      <p>いまの収入や使える時間から、あなたに合った収益化までの道のりを一緒に描きます。</p>
+      <p class="notice">※ スポットコンサルは毎月10名まで、動画公開中の3日間のみが対象です</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. How to receive -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span>How to Receive</span>受け取り方</h2>
+    <div class="receive-steps">
+      <div class="receive-step"><div class="step-no">STEP 01</div><h3>公式LINEを友だち追加する</h3><p>下のボタンから、公式LINEを友だち追加します。</p></div>
+      <div class="receive-step"><div class="step-no">STEP 02</div><h3>動画URLを受け取る</h3><p>登録後、自動で動画のURLが届きます。</p></div>
+      <div class="receive-step"><div class="step-no">STEP 03</div><h3>3日以内に最後まで見る</h3><p>登録から3日間、何度でもご覧いただけます。</p></div>
+    </div>
+    <div class="text-center"><a href="#cta" class="btn-cta">LINEで動画を受け取る（無料） ➔</a></div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span>FAQ</span>よくあるご質問</h2>
+    <div style="max-width:850px;margin:0 auto;">
+      <details class="faq-box" open><summary class="faq-summary">Q. 本当に無料ですか。</summary><p style="margin-top:12px;color:var(--text-muted);font-size:clamp(.8rem,2vw,.95rem);">A. 動画は無料です。登録後に費用を請求することはありません。</p></details>
+      <details class="faq-box"><summary class="faq-summary">Q. 副業の経験がなくても分かりますか。</summary><p style="margin-top:12px;color:var(--text-muted);font-size:clamp(.8rem,2vw,.95rem);">A. 大丈夫です。プログラミングもデザインも使いません。SNSのフォロワーがゼロでも成り立つ内容です。</p></details>
+      <details class="faq-box"><summary class="faq-summary">Q. しつこい営業は来ませんか。</summary><p style="margin-top:12px;color:var(--text-muted);font-size:clamp(.8rem,2vw,.95rem);">A. 無理な勧誘は一切しません。不要になったら、いつでもブロックしていただけます。</p></details>
+      <details class="faq-box"><summary class="faq-summary">Q. あとで見返せますか。</summary><p style="margin-top:12px;color:var(--text-muted);font-size:clamp(.8rem,2vw,.95rem);">A. 登録から3日間は何度でも見られます。3日を過ぎると見られなくなります。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Closing CTA -->
+<section id="cta" style="padding:clamp(60px,10vw,110px) 0;text-align:center;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;">
+  <div class="container">
+    <h2 style="font-size:clamp(1.6rem,5vw,2.5rem);margin-bottom:30px;font-weight:900;line-height:1.4;">あと5年、同じ毎日を続けられそうでしょうか？</h2>
+    <div class="closing-copy">
+      <p>お金が増えないことの本当のつらさは、金額ではありません。<br><strong>自由を選べなくなることです。</strong></p>
+      <p>年を重ねていく両親を、温泉に連れて行きたい。<br>でもその2泊で、来月の家計が崩れる。<br>だから「今年もまた今度でいいか」と先送りにしてしまう。</p>
+      <p>レストランでは、食べたいものではなく値段からメニューを見る。<br>隣にいる大切な人に、「安いほうでいいよ」と言わせてしまう。</p>
+      <p>このまま何も変えなければ、5年後も同じ景色のままです。</p>
+      <p>でも、変えるために必要なのは、才能でも、学歴でも、お金持ちの家に生まれることでもありません。<br><strong>正しい選び方を知ること。それだけです。</strong></p>
+      <p>お金がない、だからやる。<br>経験がない、だからやる。<br>時間がない、だからやる。<br><strong>「ない」は、全部やる理由です。</strong></p>
+      <p>人生は1回で、時間は戻ってきません。</p>
+      <p>「才能がないから」と片づける前に、まずは30分だけ、選び方のほうを疑ってみてください。</p>
+    </div>
+    <div class="placeholder-box" style="height:clamp(130px,28vw,190px);max-width:680px;margin:30px auto;background:#1e293b;border-color:#475569;color:#94a3b8;">【LINE登録・動画イメージ】</div>
+    <a href="#" class="btn-cta">無料でLINEに登録して動画を受け取る ➔</a>
+    <p style="margin-top:14px;color:#94a3b8;font-size:.78rem;line-height:1.8;">※ 登録から3日間限定公開です<br>※ 無理な勧誘は一切ありません</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container text-center" style="padding:30px 0;color:var(--text-muted);font-size:.8rem;">
+    <p>&copy; Service Name All Rights Reserved.</p>
+  </div>
+</footer>
+
+<div class="sticky-cta-bar">
+  <div class="sticky-cta-inner">
+    <div class="sticky-cta-text"><span>LINE登録限定・無料動画</span>約30分の動画講座＋豪華8大特典</div>
+    <a href="#cta" class="btn-sticky-cta">無料で動画を受け取る ➔</a>
+  </div>
+</div>
+
+</body>
+</html>
